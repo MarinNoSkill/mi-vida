@@ -1,0 +1,1 @@
+Coloca aquí tus fotos (por ejemplo 'foto1.jpg' ... 'foto6.jpg') y luego actualiza las URLs en src/App.jsx o cambia las rutas a /foto1.jpg, etc.
