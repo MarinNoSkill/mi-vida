@@ -15,15 +15,22 @@ body{
 }
 
 /* Fondo de corazones usando SVG en data URL para que no dependas de imagen externa */
-.page{
+.page{  
   min-height:100vh;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 24 24' fill='none'><path d='M12 21s-8-4.35-8-10A5 5 0 0 1 12 6a5 5 0 0 1 8 5c0 5.65-8 10-8 10z' fill='%23ffd6e0' opacity='0.7'/></svg>");
-  background-repeat: repeat;
   display:flex;
+  flex-direction:column;
   align-items:center;
-  justify-content:center;
-  padding:16px; /* mobile-first smaller padding */
+  justify-content:flex-start;
+  padding:16px 12px 36px 12px; /* mobile-first smaller padding */
+  position:relative;
+  overflow:hidden;
 }
+
+/* full-bleed background image element (use object-fit to preserve quality) */
+.bg-img{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:-2;filter:none;transform:translateZ(0)}
+
+/* subtle overlay to ensure text readability over the photo */
+.page::before{content:'';position:fixed;inset:0;background:linear-gradient(rgba(0,0,0,0.14), rgba(0,0,0,0.08));pointer-events:none;z-index:-1}
 
 .card{
   width:min(1100px,94%);
@@ -161,6 +168,28 @@ body{
   .center-heart{width:170px;height:170px}
   .center-heart-text{font-size:14px;padding:8px}
   .modal-card{width:94vw;max-height:80vh;padding:16px}
+}
+
+/* Styles for the new video + text card layout */
+.video-container{display:flex;justify-content:center;align-items:center;padding:12px 8px 8px 8px;width:100%;z-index:2;position:relative}
+.hero-video{width:100%;max-width:1280px;border-radius:14px;box-shadow:0 18px 48px rgba(0,0,0,0.26);display:block;height:auto;max-height:65vh}
+.text-card{width:min(1100px,94%);margin:18px auto 52px auto;background:rgba(255,255,255,0.86);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border-radius:12px;padding:22px 26px;box-shadow:0 12px 36px rgba(0,0,0,0.14);text-align:center;z-index:2}
+.text-card .title{font-size:clamp(20px,4.2vw,28px);margin:0 0 10px;color:var(--accent)}
+.text-card .message-text{color:var(--text);line-height:1.7;margin:0 0 10px;font-size:clamp(15px,2.6vw,18px)}
+
+/* Hide old carousel/heart UI (left in CSS for history) when using the new layout */
+.carousel-wrap, .center-heart, .modal{display:none !important}
+
+/* Responsive tweaks */
+@media (max-width:900px){
+  .hero-video{max-height:48vh;border-radius:12px}
+  .text-card{padding:18px 16px;margin:14px auto}
+}
+@media (max-width:600px){
+  .hero-video{max-height:42vh}
+  .text-card{padding:14px 12px;margin:12px auto}
+  .text-card .message-text{font-size:14px;line-height:1.5}
+  .text-card .title{font-size:18px}
 }
 
 /* Responsive */
